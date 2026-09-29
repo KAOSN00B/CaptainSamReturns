@@ -1,0 +1,100 @@
+using System.Collections;
+using UnityEngine;
+
+public abstract class PlayerBaseState : State
+{
+    protected PlayerStateMachine playerStateMachine;
+
+    public PlayerBaseState(PlayerStateMachine playerStateMachine)
+    {
+        this.playerStateMachine = playerStateMachine;
+    }
+
+    protected void Move(float deltaTime)
+    {
+        Vector3 noMotions = Vector3.zero;
+        Move(noMotions, deltaTime);  
+    }
+
+    protected void Move(Vector3 motion, float deltaTime)
+    {
+        playerStateMachine.Controller.Move((motion + 
+            playerStateMachine.ForceReceiver.Movement) * deltaTime);
+    }
+
+
+    protected void FaceTarget()
+    {
+        if (playerStateMachine.Targeter.CurrentTarget == null) { return; }
+
+        Vector3 lookPos = playerStateMachine.Targeter.CurrentTarget.transform.position -
+            playerStateMachine.transform.position;
+        lookPos.y = 0f;
+        
+        playerStateMachine.transform.rotation = Quaternion.Lerp(playerStateMachine.transform.rotation,
+            Quaternion.LookRotation(lookPos), Time.deltaTime * playerStateMachine.RotationSmoothValue);
+    }
+
+    protected void TryDodge(Vector3 direction)
+    {
+        if (Time.time - playerStateMachine.PreviousDodgeTime < playerStateMachine.DodgeCooldown) return;
+
+        playerStateMachine.SetDodgeTime(Time.time);
+
+        if (direction == Vector3.zero) direction = -playerStateMachine.transform.forward; // no input = roll back
+
+        playerStateMachine.SwitchState(new PlayerDodgingState(playerStateMachine, direction.normalized));
+    }
+
+    protected void ReturnToLocomotion()
+    {
+        if (playerStateMachine.Targeter.CurrentTarget != null)
+        {
+            playerStateMachine.SwitchState(new PlayerTargetingState(playerStateMachine));
+        }
+        else
+        {
+            playerStateMachine.SwitchState(new PlayerFreeLookState(playerStateMachine));    
+        }
+    }
+
+
+    protected void FaceMovementDirection(Vector3 movement, float deltaTime)
+    {
+        if (movement == Vector3.zero) return;
+        playerStateMachine.transform.rotation = Quaternion.Lerp(playerStateMachine.transform.rotation,
+            Quaternion.LookRotation(movement), deltaTime * playerStateMachine.RotationSmoothValue);
+
+    }
+
+    protected Vector3 CalculateMovement()
+    {
+        Vector3 forward = playerStateMachine.MainCameraTransform.forward;
+        Vector3 right = playerStateMachine.MainCameraTransform.right;
+
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        return forward * playerStateMachine.InputReader.MovementValue.y +
+            right * playerStateMachine.InputReader.MovementValue.x;
+    }
+
+    protected Vector3 MovementWhileInAir(Vector3 momentum, float deltaTime)
+    {
+        Vector3 wantedVelocity = CalculateMovement() * playerStateMachine.AirMovementSpeed;
+
+        return Vector3.MoveTowards(momentum, wantedVelocity, playerStateMachine.AirAcceleration * deltaTime); 
+
+    }
+
+    protected void TryDoubleJump()
+    {
+        if (playerStateMachine.UsedDoubleJump) return;   
+
+        playerStateMachine.SwitchState(new PlayerDoubleJumpState(playerStateMachine));
+    }
+
+}
