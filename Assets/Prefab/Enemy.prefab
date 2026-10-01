@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 5355828566422587666}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2413,9 +2413,6 @@ PrefabInstance:
       addedObject: {fileID: 6241949404154738998}
     - targetCorrespondingSourceObject: {fileID: 1710209854320498, guid: e91fc491052840f48a62c61a286ccf07, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2716005894903974257}
-    - targetCorrespondingSourceObject: {fileID: 1710209854320498, guid: e91fc491052840f48a62c61a286ccf07, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6081834135499831223}
     - targetCorrespondingSourceObject: {fileID: 1710209854320498, guid: e91fc491052840f48a62c61a286ccf07, type: 3}
       insertIndex: -1
@@ -3046,18 +3043,6 @@ MonoBehaviour:
   agent: {fileID: 9212432795256575935}
   fallMultiplyer: 1
   riseMultiplier: 1
---- !u!114 &2716005894903974257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1300969823854575158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a67da032cbed943a6c266f8f225ffe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Target
 --- !u!114 &6081834135499831223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3097,7 +3082,6 @@ MonoBehaviour:
   <WeaponHandler>k__BackingField: {fileID: 7698531640339946824}
   <Health>k__BackingField: {fileID: 6081834135499831223}
   <Poise>k__BackingField: {fileID: 7199688763834348645}
-  <Target>k__BackingField: {fileID: 2716005894903974257}
   <Ragdoll>k__BackingField: {fileID: 6110425135350064120}
   <AlertSound>k__BackingField: {fileID: 8300000, guid: 1c87678f7d83fc442a6e6772cbe1f63e, type: 3}
   <StunEffect>k__BackingField: {fileID: 2377290175125188698, guid: 88218736f0053af4fbbf44bed727dab0, type: 3}
@@ -3107,7 +3091,8 @@ MonoBehaviour:
   <Transfrom>k__BackingField: {fileID: 1304477190517694050}
   <StartingPosition>k__BackingField: {fileID: 0}
   <AlertEffectPoint>k__BackingField: {fileID: 7057035822089262234}
-  <WayPoints>k__BackingField: []
+  <WayPoints>k__BackingField:
+  - {fileID: 0}
   <PlayerChasingRange>k__BackingField: 10
   <MovementSpeed>k__BackingField: 3.5
   <AttackRange>k__BackingField: 1.2

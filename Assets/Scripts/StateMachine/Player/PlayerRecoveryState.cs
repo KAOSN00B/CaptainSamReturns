@@ -28,11 +28,16 @@ public class PlayerRecoveryState : PlayerBaseState
     public override void Tick(float deltaTime)
     {
         Move(deltaTime);
-        FaceTarget();
 
         if (playerStateMachine.InputReader.IsAttacking)
         {
             playerStateMachine.SwitchState(new PlayerAttackingState(playerStateMachine, FirstAttackIndex));
+            return;
+        }
+
+        if (playerStateMachine.InputReader.IsShooting)
+        {
+            playerStateMachine.SwitchState(new PlayerAimingState(playerStateMachine));   // gun out
             return;
         }
 

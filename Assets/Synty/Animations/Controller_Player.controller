@@ -58,10 +58,10 @@ BlendTree:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Blend Tree
+  m_Name: AimBlendTree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 1375766457120316241, guid: b94969b4c36c3c94284f72888ad9289d, type: 3}
+    m_Motion: {fileID: -203655887218126122, guid: 06641f86f3b116b4488eed328581f47e, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -69,7 +69,7 @@ BlendTree:
     m_DirectBlendParameter: FreeLookSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 78c965a8ef4520d45801303c167eb251, type: 2}
+    m_Motion: {fileID: -203655887218126122, guid: 01d4af42555a1d74fa385577007360c7, type: 3}
     m_Threshold: 0.25
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -77,7 +77,7 @@ BlendTree:
     m_DirectBlendParameter: FreeLookSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 4de65abe3ff78584ba413c5c98c53484, type: 2}
+    m_Motion: {fileID: -203655887218126122, guid: ec8081995c4b28d4d8d639181427c2df, type: 3}
     m_Threshold: 0.5
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1
@@ -85,7 +85,7 @@ BlendTree:
     m_DirectBlendParameter: FreeLookSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 2e5dbb9797c11d54e9ed21966c0aac14, type: 2}
+    m_Motion: {fileID: -203655887218126122, guid: 23b0136739ea2884fa5de78e9bc62334, type: 3}
     m_Threshold: 0.75
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -93,15 +93,15 @@ BlendTree:
     m_DirectBlendParameter: FreeLookSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: de01f7e6d2b1c7c48ab2dcc58e9eac37, type: 2}
+    m_Motion: {fileID: -203655887218126122, guid: 9370f28dda2f0914694c8ba0efa22f45, type: 3}
     m_Threshold: 1
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: FreeLookSpeed
     m_Mirror: 0
-  m_BlendParameter: TargetingRightSpeed
-  m_BlendParameterY: TargetingForwardSpeed
+  m_BlendParameter: AimRightSpeed
+  m_BlendParameterY: AimForwardSpeed
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -461,13 +461,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: TargetingForwardSpeed
+  - m_Name: AimForwardSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: TargetingRightSpeed
+  - m_Name: AimRightSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -624,7 +624,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TargetingBlendTree
+  m_Name: AimBlendTree
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

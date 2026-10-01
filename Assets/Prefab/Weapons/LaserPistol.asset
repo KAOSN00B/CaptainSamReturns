@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3188e601920c6c4449673d81cf3fdbd6, type: 3}
+  m_Name: LaserPistol
+  m_EditorClassIdentifier: Assembly-CSharp::GunScriptableObject
+  Type: 0
+  Name: Laser Pistol
+  ModelPrefab: {fileID: 5453129658372968699, guid: 95553caf53323d5408735537537e19ed, type: 3}
+  SpawnPoint: {x: 0.06, y: 0, z: -0.03}
+  SpawnRotation: {x: 0, y: 90, z: 270}
+  ShootConfig: {fileID: 11400000, guid: 170c5c36658bbab4aaa43015767dbdcc, type: 2}
+  TrailConfig: {fileID: 11400000, guid: 463fc4072b1a083409dd435d2c3006bb, type: 2}
+  AnimatorOverride: {fileID: 0}

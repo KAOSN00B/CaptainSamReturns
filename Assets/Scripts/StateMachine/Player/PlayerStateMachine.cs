@@ -7,7 +7,6 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public InputReader InputReader { get; private set; }
     [field: SerializeField] public CharacterController Controller { get; private set; }
     [field: SerializeField] public Animator Animator { get; private set; }
-    [field: SerializeField] public Targeter Targeter { get; private set; }
     [field: SerializeField] public ForceReceiver ForceReceiver { get; private set; }
     [field: SerializeField] public Attack[] Attacks { get; private set; }
     [field: SerializeField] public WeaponDamage WeaponDamage { get; private set; }
@@ -15,10 +14,17 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public Poise Poise { get; private set; }
     [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
+    [field: SerializeField] public PlayerGunSelector GunSelector { get; private set; }
+    [field: SerializeField] public PlayerIK PlayerIK { get; private set; }
+
+    [Header("Aiming (gun out)")]
+    [field: SerializeField] public float AimMovementSpeed { get; private set; } = 6.5f;
+    [field: SerializeField] public float AimRotationSpeed { get; private set; } = 20f;     // how fast you turn to face where the camera looks
+    [field: SerializeField] public float AimMaxDistance { get; private set; } = 100f;      // aim point when the crosshair is on nothing
+    [field: SerializeField] public LayerMask AimMask { get; private set; } = ~0;           // what the crosshair ray can land on
 
     [Header("Movement Settings")]
     [field: SerializeField] public float FreeLookMovementSpeed { get; private set; }
-    [field: SerializeField] public float TargetingMovementSpeed { get; private set; }
     [field: SerializeField] public float RotationSmoothValue { get; private set; }
     [field: SerializeField] public float AirMovementSpeed { get; private set; } = 8.0f;
     [field: SerializeField] public float AirAcceleration { get; private set; } = 15.0f;
@@ -36,7 +42,6 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public float AttackDirectionSteering { get; private set; } = 2.0f;
     [field: SerializeField] public int HeavyHitDamage { get; private set; } = 20;  // hits this strong play the big stagger instead of the quick flinch
     [field: SerializeField] public float GuardBreakDuration { get; private set; } = 1.2f;  // how long you're stunned when your guard breaks
-    [field: SerializeField] public float LoseTargetInAir { get; private set; } = 0.5f;  
     [field: SerializeField] public float CoyoteTime { get; private set; } = 0.1f;
 
     [Header("Jump Attack")]

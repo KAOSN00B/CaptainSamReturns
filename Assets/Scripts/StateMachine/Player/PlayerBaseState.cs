@@ -35,18 +35,6 @@ public abstract class PlayerBaseState : State
     }
 
 
-    protected void FaceTarget()
-    {
-        if (playerStateMachine.Targeter.CurrentTarget == null) { return; }
-
-        Vector3 lookPos = playerStateMachine.Targeter.CurrentTarget.transform.position -
-            playerStateMachine.transform.position;
-        lookPos.y = 0f;
-        
-        playerStateMachine.transform.rotation = Quaternion.Lerp(playerStateMachine.transform.rotation,
-            Quaternion.LookRotation(lookPos), Time.deltaTime * playerStateMachine.RotationSmoothValue);
-    }
-
     protected void TryDodge(Vector3 direction)
     {
         if (Time.time - playerStateMachine.PreviousDodgeTime < playerStateMachine.DodgeCooldown) return;
@@ -60,9 +48,9 @@ public abstract class PlayerBaseState : State
 
     protected void ReturnToLocomotion()
     {
-        if (playerStateMachine.Targeter.CurrentTarget != null)
+        if (playerStateMachine.GunSelector.IsGunEquipped)
         {
-            playerStateMachine.SwitchState(new PlayerTargetingState(playerStateMachine));
+            playerStateMachine.SwitchState(new PlayerAimingState(playerStateMachine));
         }
         else
         {

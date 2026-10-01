@@ -11,6 +11,7 @@ public class PlayerBlockingState : PlayerBaseState
 
     public override void Enter()
     {
+        playerStateMachine.GunSelector.Unequip();   // you block with the sword, so it comes back out (before the crossfade)
         playerStateMachine.Health.SetBlocking(true);
         playerStateMachine.Animator.CrossFadeInFixedTime(BlockHash, CrossFadeDuration);
     }

@@ -26,6 +26,8 @@ public class PlayerJumpAttackState : PlayerBaseState
 
     public override void Enter()
     {
+        playerStateMachine.GunSelector.Unequip();   // the slam is a sword move (before the crossfade)
+
         phase = Phase.Raise;
 
         momentum = playerStateMachine.Controller.velocity;
@@ -93,10 +95,7 @@ public class PlayerJumpAttackState : PlayerBaseState
         momentum = MovementWhileInAir(momentum, deltaTime);
         Move(momentum, deltaTime);
 
-        if (playerStateMachine.Targeter.CurrentTarget != null)
-            FaceTarget();
-        else
-            FaceMovementDirection(momentum, deltaTime);
+        FaceMovementDirection(momentum, deltaTime);
     }
 
     // hit the ground: snap straight to the sword-in-the-ground pose and hold it, so the impact lands on contact

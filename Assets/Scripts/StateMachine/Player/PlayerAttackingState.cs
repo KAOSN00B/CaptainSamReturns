@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class PlayerAttackingState : PlayerBaseState
@@ -16,6 +15,8 @@ public class PlayerAttackingState : PlayerBaseState
 
     public override void Enter()
     {
+        playerStateMachine.GunSelector.Unequip();   // sword attacks always put the sword back in hand (before the crossfade)
+
         playerStateMachine.WeaponDamage.SetAttack(attack.Damage, attack.KnockBack,
             attack.CameraShake, attack.HitStopDuration, attack.SwordSwingSFX, attack.PoiseDamage);
 
@@ -40,19 +41,9 @@ public class PlayerAttackingState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
-        if (playerStateMachine.Targeter.CurrentTarget != null)
-        {
-            Move(deltaTime);
-            FaceTarget();
-        }
-
-        else
-        {
-            // free: shuffle and steer the swing with the stick, Ratchet & Clank-style
-            Vector3 movement = CalculateMovement();
-            Move(movement * playerStateMachine.AttackDirectionSteering, deltaTime);
-            FaceMovementDirection(movement, deltaTime);
-        }
+        Vector3 movement = CalculateMovement();
+        Move(movement * playerStateMachine.AttackDirectionSteering, deltaTime);
+        FaceMovementDirection(movement, deltaTime);
 
         float normalizeTime = GetNormailzedTime(playerStateMachine.Animator);
 

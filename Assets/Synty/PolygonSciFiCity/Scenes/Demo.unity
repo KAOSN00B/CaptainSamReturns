@@ -18133,7 +18133,6 @@ GameObject:
   - component: {fileID: 262933885}
   - component: {fileID: 262933884}
   - component: {fileID: 262933883}
-  - component: {fileID: 262933882}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -18141,18 +18140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &262933882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262933881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a67da032cbed943a6c266f8f225ffe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Target
 --- !u!135 &262933883
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -132553,7 +132540,6 @@ GameObject:
   - component: {fileID: 1916409535}
   - component: {fileID: 1916409534}
   - component: {fileID: 1916409533}
-  - component: {fileID: 1916409532}
   m_Layer: 0
   m_Name: Sphere (1)
   m_TagString: Untagged
@@ -132561,18 +132547,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1916409532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916409531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a67da032cbed943a6c266f8f225ffe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Target
 --- !u!135 &1916409533
 SphereCollider:
   m_ObjectHideFlags: 0

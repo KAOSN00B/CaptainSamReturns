@@ -10,7 +10,7 @@ public class PlayerFallingState : PlayerBaseState
 
     private Vector3 momentum;
 
-    private float timeInAir;   // how long we've been falling - drives both coyote time and the lock on gap
+    private float timeInAir;   // how long we've been falling - drives coyote time and landing feedback
 
 
     public override void Enter()
@@ -54,11 +54,6 @@ public class PlayerFallingState : PlayerBaseState
 
         timeInAir += deltaTime;
 
-        // small gaps keep the lock-on; a real fall off a ledge lets go of the enemy
-        if (WalkedOffLedge() && timeInAir >= playerStateMachine.LoseTargetInAir && playerStateMachine.Targeter.CurrentTarget != null)
-        {
-            playerStateMachine.Targeter.Cancel();
-        }
 
         if (AttackPressedThisFrame())
         {
@@ -67,10 +62,7 @@ public class PlayerFallingState : PlayerBaseState
         }
 
 
-        if (playerStateMachine.Targeter.CurrentTarget != null)
-            FaceTarget();                                 
-        else
-            FaceMovementDirection(momentum, deltaTime);   
+        FaceMovementDirection(momentum, deltaTime);
     }
 
     // UsedJump is only set by a real jump, so if it's false we got here by stepping off an edge

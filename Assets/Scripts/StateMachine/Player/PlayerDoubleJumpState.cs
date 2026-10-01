@@ -48,10 +48,7 @@ public class PlayerDoubleJumpState : PlayerBaseState
         //}
 
 
-        if (playerStateMachine.Targeter.CurrentTarget != null)
-            FaceTarget();                                  // locked on: keep eyes on the enemy
-        else
-            FaceMovementDirection(momentum, deltaTime);    // free: turn to face where you're flying
+        FaceMovementDirection(momentum, deltaTime);
     }
 
 }

@@ -13,7 +13,6 @@ public class EnemyStateMachine : StateMachine
     [field: SerializeField] public WeaponHandler WeaponHandler { get; private set; }
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public Poise Poise { get; private set; }
-    [field: SerializeField] public Target Target { get; private set; }
     [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
     [field: SerializeField] public AudioClip AlertSound { get; private set; }
     [field: SerializeField] public GameObject StunEffect { get; private set; }        // dizzy stars shown while staggered

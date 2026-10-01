@@ -12,7 +12,6 @@ public class PlayerFreeLookState : PlayerBaseState
 
     public override void Enter()
     {
-        playerStateMachine.InputReader.TargetEvent += OnTarget;
         playerStateMachine.InputReader.JumpEvent += OnJump;
         playerStateMachine.InputReader.DodgeEvent += OnDodge;
 
@@ -32,6 +31,12 @@ public class PlayerFreeLookState : PlayerBaseState
         if (playerStateMachine.InputReader.IsBlocking)
         {
             playerStateMachine.SwitchState(new PlayerBlockingState(playerStateMachine));
+            return;
+        }
+
+        if (playerStateMachine.InputReader.IsShooting)
+        {
+            playerStateMachine.SwitchState(new PlayerAimingState(playerStateMachine));   // gun out
             return;
         }
 
@@ -64,19 +69,8 @@ public class PlayerFreeLookState : PlayerBaseState
 
     public override void Exit()
     {
-        playerStateMachine.InputReader.TargetEvent -= OnTarget;
         playerStateMachine.InputReader.JumpEvent -= OnJump;
         playerStateMachine.InputReader.DodgeEvent -= OnDodge;
-    }
-
-
-    private void OnTarget()
-    {
-        if (!playerStateMachine.Targeter.SelectTarget()) { return; }
-
-        if (playerStateMachine.Targeter.CurrentTarget)
-
-            playerStateMachine.SwitchState(new PlayerTargetingState(playerStateMachine));
     }
 
 
