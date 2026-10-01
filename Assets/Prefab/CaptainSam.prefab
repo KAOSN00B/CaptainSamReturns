@@ -408,7 +408,6 @@ MonoBehaviour:
   myCollider: {fileID: 7860341456033491892}
   myDamage: 10
   impluseSource: {fileID: 1959803250578941978}
-  hitStop: {fileID: 8296423199291016659}
   swordSparks: {fileID: 5351504591067136878, guid: db890d7a7c6292d4898c65753a49a8cd, type: 3}
   attackLogicCollider: {fileID: 7596159282329463001}
 --- !u!54 &7152219148824353207
@@ -4396,7 +4395,6 @@ GameObject:
   - component: {fileID: 2559195439330264987}
   - component: {fileID: 168764882151801446}
   - component: {fileID: 6535966535157829258}
-  - component: {fileID: 8296423199291016659}
   - component: {fileID: 3586205499827198784}
   - component: {fileID: 2341313753880694142}
   m_Layer: 6
@@ -4544,6 +4542,8 @@ MonoBehaviour:
   <FreeLookMovementSpeed>k__BackingField: 8
   <TargetingMovementSpeed>k__BackingField: 6.5
   <RotationSmoothValue>k__BackingField: 15
+  <AirMovementSpeed>k__BackingField: 8
+  <AirAcceleration>k__BackingField: 15
   <DodgeDuration>k__BackingField: 0.7
   <DodgeDistance>k__BackingField: 7
   <DodgeCooldown>k__BackingField: 0.3
@@ -4554,6 +4554,13 @@ MonoBehaviour:
   <AttackDirectionSteering>k__BackingField: 1
   <HeavyHitDamage>k__BackingField: 20
   <GuardBreakDuration>k__BackingField: 1.2
+  <LoseTargetInAir>k__BackingField: 0.5
+  <CoyoteTime>k__BackingField: 0.1
+  <JumpFeedback>k__BackingField: {fileID: 0}
+  <DoubleJumpFeedback>k__BackingField: {fileID: 0}
+  <LandFeedback>k__BackingField: {fileID: 0}
+  <HurtFeedback>k__BackingField: {fileID: 0}
+  <MinAirTimeForLandFeedback>k__BackingField: 0.15
 --- !u!143 &7860341456033491892
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4595,6 +4602,7 @@ MonoBehaviour:
   drag: 0.07
   agent: {fileID: 0}
   fallMultiplyer: 2
+  riseMultiplier: 1
 --- !u!114 &2559195439330264987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4626,6 +4634,10 @@ MonoBehaviour:
   hurtSound: {fileID: 0}
   hurtParticles: {fileID: 198104090543139058, guid: 89205f6344f97314298071e4acd2de88, type: 3}
   hurtBox: {fileID: 7860341456033491892}
+  blockSparks: {fileID: 0}
+  blockSound: {fileID: 0}
+  damageNumbers: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!114 &6535966535157829258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4640,19 +4652,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ragdoll
   animator: {fileID: 6575297754484573934}
   controller: {fileID: 7860341456033491892}
---- !u!114 &8296423199291016659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5294606750592511696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab3d07723fa8d644b99b665ef8db89ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HitStop
-  stopTimeScale: 0.03
 --- !u!114 &3586205499827198784
 MonoBehaviour:
   m_ObjectHideFlags: 0

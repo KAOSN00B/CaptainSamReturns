@@ -12,6 +12,9 @@ public class Poise : MonoBehaviour
 
     public event Action OnPoiseBroken;
 
+    public float CurrentPoise => currentPoise;   // read-only, for the HUD guard meter
+    public int MaxPoise => maxPoise;
+
     private void Start()
     {
         currentPoise = maxPoise;

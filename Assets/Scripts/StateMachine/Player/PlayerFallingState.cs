@@ -10,7 +10,7 @@ public class PlayerFallingState : PlayerBaseState
 
     private Vector3 momentum;
 
-    private float timeInAir;   // how long we've been falling - drives both coyote time and the lock-on gap
+    private float timeInAir;   // how long we've been falling - drives both coyote time and the lock on gap
 
 
     public override void Enter()
@@ -36,6 +36,16 @@ public class PlayerFallingState : PlayerBaseState
 
         if (playerStateMachine.Controller.isGrounded)
         {
+            // a real landing (not just stepping down a curb) gets the squash + dust
+            bool realLanding = playerStateMachine.UsedJump || timeInAir >= playerStateMachine.MinAirTimeForLandFeedback;
+            if (realLanding && playerStateMachine.LandFeedback != null)
+            {
+                // longer falls land harder: bigger squash, dust, shake and thud
+                float fall = Mathf.Clamp01(timeInAir / playerStateMachine.AirTimeForMaxLandIntensity);
+                float intensity = Mathf.Lerp(playerStateMachine.MinLandIntensity, playerStateMachine.MaxLandIntensity, fall);
+                playerStateMachine.PlayMovementFeedback(playerStateMachine.LandFeedback, playerStateMachine.transform.position, intensity);
+            }
+
             playerStateMachine.SetUsedJump(false);
             playerStateMachine.SetUsedDoubleJump(false);   // landed: double jump comes back
             ReturnToLocomotion();
@@ -50,10 +60,17 @@ public class PlayerFallingState : PlayerBaseState
             playerStateMachine.Targeter.Cancel();
         }
 
+        if (AttackPressedThisFrame())
+        {
+            playerStateMachine.SwitchState(new PlayerJumpAttackState(playerStateMachine));
+            return;
+        }
+
+
         if (playerStateMachine.Targeter.CurrentTarget != null)
-            FaceTarget();                                  // locked on: keep eyes on the enemy
+            FaceTarget();                                 
         else
-            FaceMovementDirection(momentum, deltaTime);    // free: turn to face where you're flying
+            FaceMovementDirection(momentum, deltaTime);   
     }
 
     // UsedJump is only set by a real jump, so if it's false we got here by stepping off an edge

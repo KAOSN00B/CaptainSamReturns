@@ -60,6 +60,18 @@ public class ForceReceiver : MonoBehaviour
         verticalVelocity = jumpForce;
     }
 
+    // jump attack wind-up: hang in the air (call every frame to cancel gravity)
+    public void Hover()
+    {
+        verticalVelocity = 0f;
+    }
+
+    // jump attack: drive straight down at this speed
+    public void Plunge(float speed)
+    {
+        verticalVelocity = -Mathf.Abs(speed);
+    }
+
     public void DoubleJump(float jumpForce)
     {
         //double jump should be half as high

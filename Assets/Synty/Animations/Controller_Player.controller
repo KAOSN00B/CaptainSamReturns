@@ -133,6 +133,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-7861929370571351627
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: JumpAttackReturn
+  m_Speed: 1.2
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -1276650336607947451, guid: 3c4651f8c8a77944aadd0b01d719f361, type: 3}
+  m_Tag: Recovery
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-7734140714537366237
 AnimatorState:
   serializedVersion: 6
@@ -487,6 +513,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &501199764110163335
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: JumpAttack
+  m_Speed: 2
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -9179346313758512077, guid: b48c7e37f2264c3418122c894c6f98af, type: 3}
+  m_Tag: Attack
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &739267733234251992
 AnimatorState:
   serializedVersion: 6
@@ -797,10 +849,10 @@ AnimatorStateMachine:
     m_Position: {x: 240, y: -230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3894583587744166840}
-    m_Position: {x: 750, y: 60, z: 0}
+    m_Position: {x: 850, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6647042879280511735}
-    m_Position: {x: 740, y: 150, z: 0}
+    m_Position: {x: 840, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7624304040635052932}
     m_Position: {x: 590, y: -360, z: 0}
@@ -812,19 +864,19 @@ AnimatorStateMachine:
     m_Position: {x: 590, y: -160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4076012173265231181}
-    m_Position: {x: 750, y: 220, z: 0}
+    m_Position: {x: 850, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8838592001267504571}
-    m_Position: {x: 790, y: 290, z: 0}
+    m_Position: {x: 890, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1083022123351134956}
-    m_Position: {x: 780, y: 360, z: 0}
+    m_Position: {x: 880, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 954866653577049767}
-    m_Position: {x: 780, y: 420, z: 0}
+    m_Position: {x: 880, y: 410, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8441909689725779229}
-    m_Position: {x: 800, y: 480, z: 0}
+    m_Position: {x: 900, y: 470, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4014515981777476077}
     m_Position: {x: 250, y: -160, z: 0}
@@ -858,6 +910,12 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 250509381421063227}
     m_Position: {x: 590, y: -300, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 501199764110163335}
+    m_Position: {x: 880, y: -210, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -7861929370571351627}
+    m_Position: {x: 880, y: -140, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -865,7 +923,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 0, y: -140, z: 0}
   m_EntryPosition: {x: -10, y: -70, z: 0}
-  m_ExitPosition: {x: 760, y: 10, z: 0}
+  m_ExitPosition: {x: 860, y: 0, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -7734140714537366237}
 --- !u!1102 &7624304040635052932

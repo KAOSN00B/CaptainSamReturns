@@ -5,9 +5,21 @@ public abstract class PlayerBaseState : State
 {
     protected PlayerStateMachine playerStateMachine;
 
+    private bool attackHeldLastFrame;
+
     public PlayerBaseState(PlayerStateMachine playerStateMachine)
     {
         this.playerStateMachine = playerStateMachine;
+        attackHeldLastFrame = playerStateMachine.InputReader.IsAttacking;   // a button already held coming into this state doesn't count as a press
+    }
+
+    // true only on the frame attack goes from released to pressed (IsAttacking alone is "held")
+    protected bool AttackPressedThisFrame()
+    {
+        bool held = playerStateMachine.InputReader.IsAttacking;
+        bool pressed = held && !attackHeldLastFrame;
+        attackHeldLastFrame = held;
+        return pressed;
     }
 
     protected void Move(float deltaTime)

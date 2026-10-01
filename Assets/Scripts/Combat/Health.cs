@@ -10,11 +10,16 @@ public class Health : MonoBehaviour
     [SerializeField] ParticleSystem blockSparks;   // sprays off the guard when a hit is blocked
     [SerializeField] AudioClip blockSound;
 
+    [SerializeField] HealthBarUI healthBar;        // optional: bar over the head (Synty HUD style)
+
     private int health;
     private bool isInvulnerable;
     private bool isBlocking;
     private Poise guard;   // optional: a Poise on the same object doubles as the guard meter while blocking
     public bool isDead => health == 0;
+    public int CurrentHealth => health;        // read-only, for the HUD
+    public int MaxHealth => maxHealth;
+    public bool IsBlocking => isBlocking;
     public Vector3 LastHitFrom { get; private set; }   // lets hit reactions face the right way
     public int LastDamage { get; private set; }        // lets hit reactions tell light hits from heavy ones
 
@@ -26,6 +31,7 @@ public class Health : MonoBehaviour
     {
         health = maxHealth;
         TryGetComponent(out guard);
+        UpdateHealthBar(false);
     }
 
     public void DealDamage(int damage, Vector3 attackerPosition)
@@ -51,6 +57,8 @@ public class Health : MonoBehaviour
 
         health = Mathf.Max(health - damage, 0);
 
+        UpdateHealthBar(true);
+
         if (health == 0)
         {
             OnDeath?.Invoke();
@@ -64,12 +72,23 @@ public class Health : MonoBehaviour
         Debug.Log(health);
     }
 
+    private void UpdateHealthBar(bool show)
+    {
+        if (healthBar != null) healthBar.SetHealth(health, maxHealth, show);
+    }
+
+    // the point on the body closest to the attacker
+    private Vector3 HitPoint(Vector3 attackerPosition)
+    {
+        return hurtBox != null ? hurtBox.ClosestPoint(attackerPosition) : transform.position;
+    }
+
     // sprays an effect out from the point of the body closest to the attacker
     private void SpawnHitEffect(ParticleSystem effect, Vector3 attackerPosition)
     {
         if (effect == null || hurtBox == null) return;
 
-        Vector3 hitPoint = hurtBox.ClosestPoint(attackerPosition);
+        Vector3 hitPoint = HitPoint(attackerPosition);
         Vector3 outward = (hitPoint - hurtBox.bounds.center).normalized;
         Quaternion sprayRotation = Quaternion.LookRotation(outward + Vector3.up);
 

@@ -19,8 +19,9 @@ public class PlayerJumpingState : PlayerBaseState
         momentum.y = 0.0f;
 
         playerStateMachine.Animator.CrossFadeInFixedTime(JumpHash, CrossFadeDuration);
+        playerStateMachine.PlayMovementFeedback(playerStateMachine.JumpFeedback);
 
-        playerStateMachine.InputReader.JumpEvent += OnJump;  
+        playerStateMachine.InputReader.JumpEvent += OnJump;
     }
 
     public override void Exit()
@@ -38,6 +39,12 @@ public class PlayerJumpingState : PlayerBaseState
         if (playerStateMachine.Controller.velocity.y <= 0.0f)
         {
             playerStateMachine.SwitchState(new PlayerFallingState(playerStateMachine));
+            return;
+        }
+
+        if (AttackPressedThisFrame())
+        {
+            playerStateMachine.SwitchState(new PlayerJumpAttackState(playerStateMachine));
             return;
         }
 

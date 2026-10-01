@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,9 +10,9 @@ public class WeaponDamage : MonoBehaviour
     [SerializeField] private Collider myCollider;
     [SerializeField] private int myDamage = 10;
     [SerializeField] private CinemachineImpulseSource impluseSource;
-    [SerializeField] private HitStop hitStop;
     [SerializeField] private ParticleSystem swordSparks;
     [SerializeField] private Collider attackLogicCollider;
+    [SerializeField] private MMF_Player hitFeedback;   // hit-confirm punch (chromatic kick, impact sound) - player sword only
 
 
 
@@ -22,6 +23,8 @@ public class WeaponDamage : MonoBehaviour
     private float cameraShake;
     private float hitStopDuration;
     private AudioClip hitClip;
+
+    private const float AlwaysFreeze = 0f;   // Feel skips a freeze if time scale is below this; 0 = never skip
 
     private List<Collider> alreadyCollidedWith = new List<Collider>();
 
@@ -47,7 +50,10 @@ public class WeaponDamage : MonoBehaviour
 
             if (cameraShake > 0) impluseSource.GenerateImpulse(cameraShake);
 
-            if (hitStopDuration > 0f) hitStop.StopRunning(hitStopDuration);
+            // Feel's MMTimeManager owns time scale now (freeze frames, slow-mo), so ask it for the hit stop
+            if (hitStopDuration > 0f) MMFreezeFrameEvent.Trigger(hitStopDuration, AlwaysFreeze);
+
+            if (hitFeedback != null) hitFeedback.PlayFeedbacks(attackLogicCollider.ClosestPoint(other.bounds.center));
 
         }
 

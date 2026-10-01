@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using MoreMountains.Feedbacks;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyStateMachine : StateMachine
@@ -18,6 +19,7 @@ public class EnemyStateMachine : StateMachine
     [field: SerializeField] public GameObject StunEffect { get; private set; }        // dizzy stars shown while staggered
     [field: SerializeField] public GameObject AlertEffect { get; private set; }        // dizzy stars shown while staggered
     [field: SerializeField] public Transform StunEffectPoint { get; private set; }
+    [field: SerializeField] public MMF_Player HitReactFeedback { get; private set; }   // squash + jolt on the body when hit
     [field: SerializeField] public Transform Transfrom { get; private set; }
     [field: SerializeField] public Transform StartingPosition { get; private set; }
     [field: SerializeField] public Transform AlertEffectPoint { get; private set; }
@@ -99,6 +101,8 @@ public class EnemyStateMachine : StateMachine
     {
         if (Health.isDead) return;
 
+        if (HitReactFeedback != null) HitReactFeedback.PlayFeedbacks();
+
         string state = HitDirection.StateName(FlinchReaction, transform, Health.LastHitFrom);
         Animator.CrossFadeInFixedTime(state, FlinchFadeDuration, Animator.GetLayerIndex(FlinchLayerName));
     }
@@ -115,8 +119,11 @@ public class EnemyStateMachine : StateMachine
         SwitchState(new EnemyImpactState(this));
     }
 
+    private const string DefeatedMessage = "Enemy Defeated";
+
     private void HandleDeath()
     {
+        EventLogUI.Show(DefeatedMessage);
         SwitchState(new EnemyDeathState(this));
     }
 

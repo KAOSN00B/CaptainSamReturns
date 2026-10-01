@@ -1,0 +1,35 @@
+if (UnityEditor.EditorApplication.isPlaying) return "ABORT playing";
+const string PrefabPath = "Assets/Prefab/UI/UI_GameHUD.prefab";
+var panel = new UnityEngine.Color(0.07f, 0.07f, 0.08f);    // dark neutral for backgrounds
+var accent = new UnityEngine.Color(1f, 0.78f, 0.2f);       // the game's yellow (the "!", lock-on triangle, enemy tell)
+const float VignetteAlpha = 0.45f;                         // softer, black instead of navy
+var root = UnityEditor.PrefabUtility.LoadPrefabContents(PrefabPath);
+var hud = root.transform.GetChild(0);
+var sb = new System.Text.StringBuilder();
+
+// 1. boot-up animation (and its blue scanlines) off
+var techy = hud.Find("Techy_Stuff"); if (techy) { techy.gameObject.SetActive(false); sb.AppendLine("boot-up sequence off"); }
+
+// 2. vignette: black and softer
+var vig = hud.Find("FX/Vignette/VIGNETTE/SPR_Vignette")?.GetComponent<UnityEngine.UI.Image>();
+if (vig) { vig.color = new UnityEngine.Color(0f, 0f, 0f, VignetteAlpha); sb.AppendLine("vignette: navy -> black " + VignetteAlpha); }
+
+// 3. every other blue piece: frames/edges -> yellow accent, backgrounds -> dark neutral (keeps each piece's own transparency)
+bool Blue(UnityEngine.Color c) => c.b > c.r + 0.15f && c.b >= c.g;
+bool IsAccent(UnityEngine.UI.Graphic g) { string n = (g.name + " " + (g is UnityEngine.UI.Image i && i.sprite ? i.sprite.name : "")).ToLower(); return n.Contains("frame") || n.Contains("flash") || n.Contains("triangle") || n.Contains("detail") || n.Contains("bracket"); }
+int toPanel = 0, toAccent = 0;
+foreach (var g in hud.GetComponentsInChildren<UnityEngine.UI.Graphic>(true)) {
+  if (g is TMPro.TMP_Text) continue;
+  if (vig && g == vig) continue;
+  if (!Blue(g.color)) continue;
+  float a = g.color.a;
+  if (IsAccent(g)) { g.color = new UnityEngine.Color(accent.r, accent.g, accent.b, a); toAccent++; }
+  else { g.color = new UnityEngine.Color(panel.r, panel.g, panel.b, a); toPanel++; }
+}
+sb.AppendLine("recolored " + toPanel + " backgrounds -> dark, " + toAccent + " frames/edges -> yellow");
+
+UnityEditor.PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
+UnityEditor.PrefabUtility.UnloadPrefabContents(root);
+var sc = UnityEngine.SceneManagement.SceneManager.GetActiveScene(); UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(sc);
+sb.AppendLine("saved=" + UnityEditor.SceneManagement.EditorSceneManager.SaveScene(sc));
+return sb.ToString();

@@ -20,6 +20,7 @@ public class PlayerDoubleJumpState : PlayerBaseState
         momentum.y = 0.0f;
 
         playerStateMachine.Animator.CrossFadeInFixedTime(JumpHash, CrossFadeDuration);
+        playerStateMachine.PlayMovementFeedback(playerStateMachine.DoubleJumpFeedback);
     }
 
     public override void Exit()
@@ -39,6 +40,12 @@ public class PlayerDoubleJumpState : PlayerBaseState
             playerStateMachine.SwitchState(new PlayerFallingState(playerStateMachine));
             return;
         }
+
+        //if (AttackPressedThisFrame())
+        //{
+        //    playerStateMachine.SwitchState(new PlayerJumpAttackState(playerStateMachine));
+        //    return;
+        //}
 
 
         if (playerStateMachine.Targeter.CurrentTarget != null)
